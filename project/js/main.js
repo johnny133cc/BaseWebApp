@@ -60,4 +60,24 @@ function handleSignIn(){
   });
 }
 
-window.handleSignIn = handleSignIn;
+
+function addMessage(postTitle, postBody){
+  var postData = {
+    title: postTitle,
+    body: postBody
+  }
+
+  var database = firebase.database().ref("posts");
+
+  var postListRef = firebase.database().ref('posts');
+  
+  var newPostRef = database.push();
+  newPostRef.set(postData);
+
+}
+
+function handleMessageFormSubmit(){
+  var postTitle = $("#post-title").val(); 
+  var postBody = $("#post-body").val(); 
+  addMessage(postTitle, postBody);
+}
