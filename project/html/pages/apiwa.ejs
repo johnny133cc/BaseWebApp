@@ -10,15 +10,23 @@
 
     <%- include('../helpers/navbar') %>
 
-    <h1>Hello World</h1>
+    <h1>API Web App</h1>
   </div>
 
+    <input class="search" type="text" placeholder="Enter city name">
+    <button type="button" onClick="searchWeather()">Search</button>
 
-  <p>Click on the button for a surprise.</p>
+    <div class="error-message"></div>
 
-  <button onClick="showPicture()" class="btn btn-dark">Click me</button>
 
-  <div id="image"></div>
+<div class ="city">
+
+</div>
+
+<div class ="temp">
+
+</div>    
+
   
 </body>
 

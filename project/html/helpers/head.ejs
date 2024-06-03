@@ -23,5 +23,56 @@
 <!-- then bootstrap -->
 <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<script> var apiKey="<%= process.env.API_KEY %>"; </script>
+
 <!-- then our app's own js file -->
 <script src="js/main.js"></script>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js";
+
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getAuth, GoogleAuthProvider, signInWithPopup} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
+    import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js';
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "<%= process.env.FIREBASE_API_KEY %>",
+      authDomain: "message-stream-5d177.firebaseapp.com",
+      databaseURL: "https://message-stream-5d177-default-rtdb.firebaseio.com",
+      projectId: "message-stream-5d177",
+      storageBucket: "message-stream-5d177.appspot.com",
+      messagingSenderId: "40404133186",
+      appId: "1:40404133186:web:b9bd1a793eaf64890f54db",
+      measurementId: "G-VMCGEK32VW"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+
+    // Assigning the function to the window object
+    window.handleSignIn = function() {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          console.log(user.email);
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.error("Error during sign in:", errorCode, errorMessage);
+        });
+    }
+  </script>
+
